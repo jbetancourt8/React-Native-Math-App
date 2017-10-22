@@ -85,7 +85,7 @@ class InputWithButton extends Component {
       method: 'GET'
     })
       .then(response => response.json())
-      .then(response => console.log(response))
+      .then(response => response)
       .then((response) => {
         this.props.dispatch(changeOutput(response.result));
       })
