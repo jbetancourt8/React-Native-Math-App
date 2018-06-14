@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Keyboard } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { changeInitialEquation, changeOutput } from '../../actions/operations';
+import { changeInitialEquation, changeOutput, isLoading } from '../../actions/operations';
 
 const INPUT_HEIGHT = 48;
 const BORDER_RADIUS = 4;
 
 const styles = {
   container: {
-    width: '100%',
+    width: '90%',
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -70,26 +70,39 @@ class InputWithButton extends Component {
     dispatch: PropTypes.func
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: false
+    };
+  }
+
   submitText = () => {
     let temp = this.props.inputText;
 
-    if (temp.includes('/')) {
-      temp = temp.replace('/', '(over)');
-    }
+    if(temp !== ''){
+      this.props.dispatch(isLoading(this.props.loading));
 
-    this.props.dispatch(changeInitialEquation(temp));
+      if (temp.includes('/')) {
+        temp = temp.replace('/', '(over)');
+      }
 
-    const operation = this.props.initialOperation.toLowerCase();
+      this.props.dispatch(changeInitialEquation(this.props.inputText));
 
-    fetch(`https://newton.now.sh/${operation}/${this.props.initialEquation}`, {
-      method: 'GET'
-    })
-      .then(response => response.json())
-      .then(response => response)
-      .then((response) => {
-        this.props.dispatch(changeOutput(response.result));
+      const operation = this.props.initialOperation.toLowerCase();
+    
+      fetch(`https://newton.now.sh/${operation}/${temp}`, {
+        method: 'GET'
       })
-      .catch(err => console.log(err));
+        .then(response => response.json())
+        .then((response) => {
+          this.props.dispatch(changeOutput(response.result));
+
+          this.props.dispatch(isLoading(this.props.loading));
+        })
+        .catch(err => console.log(err.error));
+    }
   };
 
   render() {
@@ -123,11 +136,13 @@ const mapToState = (state) => {
   const initialEquation = state.operationsReducer.initialEquation;
   const initialOperation = state.operationsReducer.initialOperation;
   const primaryColor = state.themesReducer.primaryColor;
+  const loading = state.operationsReducer.loading;
 
   return {
     initialEquation,
     initialOperation,
-    primaryColor
+    primaryColor,
+    loading
   };
 };
 

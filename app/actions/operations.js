@@ -1,6 +1,7 @@
 export const CHANGE_INITIAL_EQUATION = 'CHANGE_INITIAL_EQUATION';
 export const CHANGE_OUTPUT = 'CHANGE_OUTPUT';
 export const CHANGE_INITIAL_OPERATION = 'CHANGE_INITIAL_OPERATION';
+export const LOADING = 'LOADING';
 
 export const changeInitialEquation = equation => ({
   type: CHANGE_INITIAL_EQUATION,
@@ -15,4 +16,9 @@ export const changeOutput = output => ({
 export const changeInitialOperation = operation => ({
   type: CHANGE_INITIAL_OPERATION,
   operation
+});
+
+export const isLoading = isLoading => ({
+  type: LOADING,
+  isLoading
 });

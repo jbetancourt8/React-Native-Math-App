@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -22,7 +22,7 @@ const styles = {
 };
 
 class Output extends Component {
-  render() {
+  renderOutput() {
     return (
       <View style={styles.constainer}>
         <Text style={[styles.textStyle, { color: this.props.primaryColor, paddingBottom: 20 }]}>
@@ -34,14 +34,33 @@ class Output extends Component {
       </View>
     );
   }
+
+  renderLoading() {
+    return (
+      <View style={styles.constainer}>
+        <ActivityIndicator size="large" color={this.props.primaryColor} />
+      </View>
+    )
+  }
+
+  render() {
+    const isLoading = (this.props.loading) ? this.renderLoading() : this.renderOutput(); 
+
+    return (
+      <View>
+        {isLoading}
+      </View>
+    );
+  }
 }
 
 const mapToState = (state) => {
   const initialEquation = state.operationsReducer.initialEquation;
   const output = state.operationsReducer.output;
   const primaryColor = state.themesReducer.primaryColor;
+  const loading = state.operationsReducer.loading;
 
-  return { initialEquation, output, primaryColor };
+  return { initialEquation, output, primaryColor, loading };
 };
 
 export default connect(mapToState)(Output);

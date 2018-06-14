@@ -7,9 +7,10 @@ import { Separator } from '../components/List/Separator';
 import { changePrimaryColor } from '../actions/themes';
 
 const BLUE = '#4F6D7A';
-const ORANGE = '#D57A66';
+const ORANGE = '#FF6600';
 const GREEN = '#00BD9D';
 const PURPLE = '#9E768F';
+const RED = '#ff0000';
 
 class Themes extends Component {
   static propTypes = {
@@ -19,7 +20,7 @@ class Themes extends Component {
 
   themePressed = (color) => {
     this.props.dispatch(changePrimaryColor(color));
-    this.props.navigation.goBack(null);
+    this.props.navigation.navigate('Home');
   };
 
   render() {
@@ -56,6 +57,14 @@ class Themes extends Component {
           selected
           checkmark={false}
           iconBackground={PURPLE}
+        />
+        <Separator />
+        <ListItem
+          text='Red'
+          onPress={() => this.themePressed(RED)}
+          selected
+          checkmark={false}
+          iconBackground={RED}
         />
         <Separator />
       </ScrollView>

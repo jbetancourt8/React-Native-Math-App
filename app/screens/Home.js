@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View,
+  SafeAreaView,
   StatusBar,
   Keyboard,
   KeyboardAvoidingView,
@@ -17,8 +17,7 @@ const styles = {
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20
+    justifyContent: 'center'
   }
 };
 
@@ -57,7 +56,8 @@ class Home extends Component {
   render() {
     return (
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={[styles.container, { backgroundColor: this.props.primaryColor }]}>
+        <SafeAreaView style={[styles.container, { backgroundColor: this.props.primaryColor }]}>
+
           <StatusBar translucent={false} barStyle='light-content' />
           <Header infoPressed={this.infoPressed} settingsPressed={this.settingsPressed} />
           <KeyboardAvoidingView behavior='padding'>
@@ -71,7 +71,8 @@ class Home extends Component {
             />
             <Output text={this.state.text} />
           </KeyboardAvoidingView>
-        </View>
+          
+        </SafeAreaView>
       </TouchableWithoutFeedback>
     );
   }

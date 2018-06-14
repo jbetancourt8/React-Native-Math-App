@@ -1,4 +1,4 @@
-import { StackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 import { StatusBar } from 'react-native';
 import Home from '../screens/Home';
 import Themes from '../screens/Themes';
@@ -6,7 +6,7 @@ import OperationsList from '../screens/OperationsList';
 import { Settings } from '../screens/Settings';
 import { Info } from '../screens/Info';
 
-const HomeStack = StackNavigator(
+const HomeStack = createStackNavigator(
   {
     Home: {
       screen: Home,
@@ -38,7 +38,7 @@ const HomeStack = StackNavigator(
   }
 );
 
-const OperationsListListStack = StackNavigator({
+const OperationsListListStack = createStackNavigator({
   OperationsList: {
     screen: OperationsList,
     navigationOptions: ({ navigation }) => ({
@@ -47,7 +47,7 @@ const OperationsListListStack = StackNavigator({
   }
 });
 
-export default StackNavigator(
+export default createStackNavigator(
   {
     Home: {
       screen: HomeStack

@@ -13,7 +13,7 @@ const styles = {
     left: 0,
     right: 0,
     top: 0,
-    paddingTop: Platform.OS === 'ios' ? 25 : null,
+    paddingTop: Platform.OS === 'ios' ? 40 : null,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'

@@ -26,7 +26,8 @@ const styles = {
   imageSize: {
     width: largeImageSize,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    position: 'absolute'
   },
   textStyle: {
     fontWeight: '600',
@@ -103,18 +104,23 @@ class Logo extends Component {
 
     return (
       <View style={styles.container}>
-        <Animated.Image
-          resizeMode='contain'
-          style={containerImageSize}
-          source={require('./images/background.png')}
-        >
+
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Animated.Image
+            resizeMode='contain'
+            style={containerImageSize}
+            source={require('./images/background.png')}
+          />
+          
           <Animated.Image
             resizeMode='contain'
             style={imageStyle}
             source={require('./images/mathLogo.png')}
           />
-        </Animated.Image>
+        </View>
+
         <Text style={styles.textStyle}>Math App</Text>
+
       </View>
     );
   }
